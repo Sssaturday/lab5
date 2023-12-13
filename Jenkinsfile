@@ -129,7 +129,6 @@ spec:
     image: ubuntu:22.04
     tty: true
     command:
-    - cat
     - bash
     - '-c'
     - |
