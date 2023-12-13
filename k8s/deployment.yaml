@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
         - name: labfive-container
-          image: your-registry/your-app-name:latest # Ваш реєстр та ім'я додатку з тегом "latest"
+          image: name:build # Ваш реєстр та ім'я додатку з тегом "latest"
           ports:
             - containerPort: 8080

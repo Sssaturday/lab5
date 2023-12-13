@@ -49,8 +49,8 @@ spec:
     environment {
         // Поміняйте APP_NAME на ваше імʼя та прізвище.
         // Поміняйте DOCKER_IMAGE_NAME по формату ваше імʼя аккаунту в Docker та імʼя образу
-        APP_NAME = 'your_app_name'
-        DOCKER_IMAGE_NAME = 'your_docker_hub_account/your_image_name'
+        APP_NAME = 'anastasiia'
+        DOCKER_IMAGE_NAME = 'anastasiia27/sunday'
     }
 
     stages {
@@ -60,6 +60,7 @@ spec:
                     echo 'Pulling new changes'
                     // Крок клонування репозиторію
                     // TODO: ваш код з лабораторної № 4
+                    checkout scm
                 }
             }
         }
@@ -78,6 +79,7 @@ spec:
                     echo 'Testing the application'
                     // Виконання юніт-тестів.
                     // TODO: ваш код з лабораторної № 4
+                     sh 'go test ./...'
                 }
             }
         }
@@ -103,6 +105,9 @@ spec:
                     // TODO: Підказка: bitnami/kubectl має доступну утиліту 'sed'
                     // TODO: Але ви можете використовувати будь-яке інше рішення (Kustomize, тощо)
                     // TODO: По-друге: використовуйте kubectl apply з контейнера kubectl щоб застосувати маніфести з директорії k8s
+                    sh "sed -i 's#name#${DOCKER_IMAGE_NAME}#g' k8s/deployment.yaml"
+                    sh "sed -i 's#build#${BUILD_NUMBER}#g' k8s/deployment.yaml"
+                    sh 'kubectl apply -f k8s/'
                 }
             }
         }
@@ -133,6 +138,8 @@ spec:
                 // TODO: За допомогою контейнера ubuntu встановіть `curl`
                 // TODO: Використайте curl, щоб зробити запит на http://labfive:80
                 // TODO: Можливо, вам доведеться почекати приблизно 10 секунд, поки все буде розгорнуто вперше
+                sh 'apt-get update && apt-get install -y curl'
+                sh 'sleep 10 && curl http://labfive:80'
             }
         }
     }
