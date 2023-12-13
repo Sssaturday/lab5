@@ -132,7 +132,7 @@ spec:
     - bash
     - '-c'
     - |
-      apt-get update && apt-get install -y curl
+      apt-get update && apt-get install -y curl #встановнення curl при створенні контейнера
 """
                 }
             }
@@ -141,8 +141,7 @@ spec:
                 // TODO: За допомогою контейнера ubuntu встановіть `curl`
                 // TODO: Використайте curl, щоб зробити запит на http://labfive:80
                 // TODO: Можливо, вам доведеться почекати приблизно 10 секунд, поки все буде розгорнуто вперше
-                // sh 'apt-get update && apt-get install -y curl'
-                sh 'sleep 10 && curl http://labfive:80'
+                sh 'curl http://labfive:80'
             }
         }
     }
